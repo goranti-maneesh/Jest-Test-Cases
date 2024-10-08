@@ -30,7 +30,7 @@ describe("APIComponent", () => {
 				ok: true,
 				json: () =>
 					Promise.resolve({
-						dataResponse
+						dataResponse,
 					}),
 			})
 		);

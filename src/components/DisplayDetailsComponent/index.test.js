@@ -8,7 +8,6 @@ import DisplayDetailsComponent from "./index";
 import { formData } from "../../common/common";
 
 describe("DisplayDetailsComponent", () => {
-
 	test("renders submitted data correctly", () => {
 		const history = createMemoryHistory();
 		history.push("/submitted-details", { formData });

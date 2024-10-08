@@ -15,18 +15,18 @@ const FormComponent = (props: FormComponentPropsTypes): JSX.Element => {
 		gender: "male",
 	});
 
-	const [errors, setErrors] = useState<FormErrorTypes>({
-		name: "",
-		email: "",
-		age: "",
-	});
+	const [errors, setErrors] = useState<FormErrorTypes>({ name: "", email: "", age: "" });
 
 	const { onFormSubmit } = props;
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+		console.log(typeof e.target.value, e.target.name);
 		setFormData({
 			...formData,
-			[e.target.name]: e.target.value,
+			[e.target.name]:
+				e.target.type === "number"
+					? Number(e.target.value)
+					: e.target.value,
 		});
 	};
 
@@ -44,7 +44,7 @@ const FormComponent = (props: FormComponentPropsTypes): JSX.Element => {
 		}
 
 		setErrors(newErrors);
-		return Object.keys(newErrors).length === 0;
+		return !newErrors.name && !newErrors.email && !newErrors.age;
 	};
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {

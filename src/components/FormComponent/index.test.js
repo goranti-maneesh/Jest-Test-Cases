@@ -2,6 +2,8 @@ import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import FormComponent from "./index";
 
+import { formData } from "../../common/common.tsx";
+
 describe("FormComponent", () => {
 	const onFormSubmit = jest.fn();
 
@@ -33,15 +35,19 @@ describe("FormComponent", () => {
 			target: { value: "john@example.com" },
 		});
 		fireEvent.change(screen.getByLabelText(/Age/i), {
-			target: { value: "25" },
+			target: { value: 25 },
 		});
+
+		const radioButtons = screen.getAllByLabelText(/Male/i);
+		fireEvent.click(radioButtons[0]);
+
 		fireEvent.click(screen.getByText(/Submit/i));
 
 		expect(onFormSubmit).toHaveBeenCalledWith({
-			name: "John",
+			age: 25,
 			email: "john@example.com",
-			age: "25",
 			gender: "male",
+			name: "John",
 		});
 	});
 });
